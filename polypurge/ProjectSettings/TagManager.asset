@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 3
   tags:
   - Laser Line
-  - Destructable
   layers:
   - Default
   - TransparentFX
@@ -13,7 +12,7 @@ TagManager:
   - No Player Collision
   - Water
   - UI
-  - Interactable
+  - 
   - 
   - Player
   - Hidden

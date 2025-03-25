@@ -77,16 +77,16 @@ namespace Akila.FPSFramework
         /// <summary>
         /// Deletes all the .json files at the default save path.
         /// </summary>
-        public static void DeleteAllSaves()
-        {
-            foreach (string file in Directory.GetFiles(savePath))
-            {
-                if (Path.GetExtension(file) == ".json")
-                {
-                    File.Delete(file);
-                }
-            }
-        }
+        //public static void DeleteAllSaves()
+        //{
+          //  foreach (string file in Directory.GetFiles(savePath))
+           // {
+             //   if (Path.GetExtension(file) == ".json")
+              //  {
+              //      File.Delete(file);
+              //  }
+          //  }
+       // }
 
         //TODO: Local key saving for (int, float, bool & string).
     }

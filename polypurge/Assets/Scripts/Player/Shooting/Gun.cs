@@ -83,7 +83,7 @@ public class Gun : MonoBehaviour
                     //setting the hit point to 0.01f in front of the hit point
                     Vector3 impactPosition = hit.point + hit.normal * 0.01f;
                     //instantiat the bulletimpact prefab
-                    GameObject impact = Instantiate(bulletImpactPrefab, impactPosition, Quaternion.LookRotation(hit.normal));
+                    GameObject impact = Instantiate(bulletImpactPrefab, impactPosition, Quaternion.LookRotation(hit.normal),hit.transform);
                     //destroy the impact after 2 seconds
                     Destroy(impact, 2f);
                 }

@@ -3,67 +3,56 @@ using UnityEngine;
 
 public class EnemyHealth : Health
 {
-    [SerializeField] private ParticleSystem explosionEffect;
+    [Header("Explosion Settings")]
     [SerializeField] private bool isExplosive;
-    [SerializeField] private float explosionDamage = 10f;
-    [SerializeField] private Collider explosionTrigger; // Trigger collider die de explosierange bepaalt
+    [SerializeField] private ParticleSystem explosionEffect;
+    [SerializeField] private Collider explosionTrigger;
     [SerializeField] private GameObject destroyedPrefab;
-    [SerializeField] private float destroyDelay = 2f; // Zorg dat effecten afspelen voordat het object verdwijnt
+    [SerializeField] private float explosionDamage = 10f;
+    [SerializeField] private float destroyDelay = 2f;
 
-    private bool isDead = false;
     private PlayerHealth playerHealth;
-
-    private void Explode()
-    {
-        if (explosionEffect != null)
-        {
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        }
-
-        if (destroyedPrefab != null)
-        {
-            Instantiate(destroyedPrefab, transform.position, transform.rotation);
-        }
-
-        Destroy(gameObject, destroyDelay); // Zorg dat het object pas na een paar seconden verdwijnt
-    }
+    private bool isDead = false;
 
     private void Update()
     {
         if (!isDead && hitpoints <= 0)
         {
             isDead = true;
-            
-            if (isExplosive)
+
+            if (isExplosive && playerHealth != null)
             {
-                if (isDead && isExplosive)
-                {
-                    if (playerHealth != null)
-                    {
-                        playerHealth.TakeDamage(explosionDamage);
-                    }
-                    Explode();
-                }
+                playerHealth.TakeDamage(explosionDamage);
             }
-            else
-            {
-                Explode(); // Direct exploderen als het geen explosieve vijand is
-            }
+
+            Explode();
         }
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        DamagePopUp.current.CreatePopUp(transform.position, damage.ToString());
+    }
+
+    private void Explode()
+    {
+        if (explosionEffect != null)
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        if (destroyedPrefab != null)
+            Instantiate(destroyedPrefab, transform.position, transform.rotation);
+
+        Destroy(gameObject, destroyDelay);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerHealth>() != null)
-        {
-            playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-        }
+        playerHealth = other.GetComponent<PlayerHealth>();
     }
+
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerHealth>() != null)
-        {
+        if (other.GetComponent<PlayerHealth>() == playerHealth)
             playerHealth = null;
-        }
     }
 }

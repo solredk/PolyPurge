@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : Health
 {
+    [SerializeField] private Transform resetPosition;
+
     [Header("health bar display")]
     [SerializeField] private float lerpTimer;
     [SerializeField] private float chipSpeed = 2f;
@@ -109,6 +111,18 @@ public class PlayerHealth : Health
             backHealthBar.fillAmount = hFraction;
             frontHealthBar.fillAmount = Mathf.Lerp(fillFront, backHealthBar.fillAmount, percentageComplete);
             backHealthBar.color = Color.green;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Collided with: " + other.gameObject.name);
+        if (other.CompareTag("Reset"))
+        {
+            CharacterController charactercontroller = GetComponent<CharacterController>();
+            charactercontroller.enabled = false;
+            gameObject.transform.position = resetPosition.position;
+            charactercontroller.enabled = true;
         }
     }
 }

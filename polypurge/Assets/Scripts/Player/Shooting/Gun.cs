@@ -11,9 +11,12 @@ public class Gun : MonoBehaviour
     [Header("Effects")]
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject bulletImpactPrefab;
+    
 
     [Header("Crosshair")]
     [SerializeField] private Camera playerCamera;
+
+    [SerializeField] private bool startWithAmmo = true;
 
     public PlayerUI playerUI;
 
@@ -32,9 +35,12 @@ public class Gun : MonoBehaviour
         // if you dont have a gunData, return
         if (gunData == null) 
             return;
-        // set the values from the gundata
-        currentAmmoInMag = gunData.maxAmmoInMag;
-        remainingAmmo = gunData.maxAmmo - gunData.maxAmmoInMag;
+        if (startWithAmmo)
+        {
+            // set the values from the gundata
+            currentAmmoInMag = gunData.maxAmmoInMag;
+            remainingAmmo = gunData.maxAmmo - gunData.maxAmmoInMag;
+        }
         //update the ammo display
         UpdateAmmoDisplay();
     }

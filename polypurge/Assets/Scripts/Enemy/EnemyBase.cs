@@ -3,8 +3,8 @@ using UnityEngine.AI;
 public class EnemyBase : MonoBehaviour
 {
     private StateMachine stateMachine;
-    private NavMeshAgent navMeshAgent;
-    public NavMeshAgent NavMeshAgent { get { return navMeshAgent; } }
+    public NavMeshAgent navMeshAgent;
+
     [SerializeField] private string currentState;
 
     private GameObject player;
@@ -16,7 +16,7 @@ public class EnemyBase : MonoBehaviour
 
     public float eyeHight;
 
-    public bool kutbool;
+    public bool CanSee;
     
 
     private void Start()
@@ -29,7 +29,7 @@ public class EnemyBase : MonoBehaviour
 
     private void Update()
     {
-        kutbool = CanSeePlayer();
+        CanSee = CanSeePlayer();
     }
 
     public bool CanSeePlayer()

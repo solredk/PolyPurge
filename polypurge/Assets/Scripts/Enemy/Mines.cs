@@ -11,7 +11,8 @@ public class Mines : MonoBehaviour
         {
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
         }
-        Instantiate(destroyedPrefab, transform.position, transform.rotation);
+        if (destroyedPrefab != null)
+            Instantiate(destroyedPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
     private void OnCollisionEnter(Collision collision)

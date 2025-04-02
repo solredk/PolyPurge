@@ -3,19 +3,23 @@ using UnityEngine;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI promptText;
-    [SerializeField] TextMeshProUGUI ammoText;
+    [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private TextMeshProUGUI intelText;
 
-    void Start()
+
+    public void UpdateObjectiveText(int count, int maxAmount, ObjectiveType objective)
     {
-        
+        if (count == maxAmount)
+        {
+            promptText.text = "Objective Complete";
+        }
+        else if (count < maxAmount)
+        {
+            promptText.text = "Objective " + count.ToString() + "/" + maxAmount.ToString();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void UpdatePromptText(string promptMassage)
     {
@@ -32,7 +36,7 @@ public class PlayerUI : MonoBehaviour
         else
         {
             // Normale ammo display
-            ammoText.text = $"Ammo: {currentAmmoInMag} / {remainingAmmo}";
+            ammoText.text =  currentAmmoInMag + "/" + remainingAmmo;
         }
     }
 }

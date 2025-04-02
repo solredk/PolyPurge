@@ -18,7 +18,7 @@ public class PatrolState : BaseState
     }
     public void PatrolCicle()
     {
-        if (enemyBase.NavMeshAgent.remainingDistance < 0.02f) 
+        if (enemyBase.navMeshAgent.remainingDistance < 0.02f) 
         {
             waitTimer += Time.deltaTime;
             if (waitTimer >= 3)
@@ -27,7 +27,7 @@ public class PatrolState : BaseState
                     wayPointIndex = 0;
                 else
                     wayPointIndex++;
-                enemyBase.NavMeshAgent.SetDestination(enemyBase.path.waypoints[wayPointIndex].position);
+                enemyBase.navMeshAgent.SetDestination(enemyBase.path.waypoints[wayPointIndex].position);
                 waitTimer = 0;
             }
         }

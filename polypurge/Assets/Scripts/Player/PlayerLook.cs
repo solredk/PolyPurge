@@ -25,6 +25,8 @@ public class PlayerLook : MonoBehaviour
 
     private PlayerUI playerUI;
 
+    [SerializeField] private UIManager uiManager;
+
     private Interactable interactable;
 
     private void Start()
@@ -32,10 +34,19 @@ public class PlayerLook : MonoBehaviour
         // Get the camera component from the player gameobject child
         cam = GetComponentInChildren<Camera>();
         playerUI = GetComponent<PlayerUI>();
+        if (!uiManager.pauseState)
+        {
+            //make you unable to see the cursor and lock it in the center of the screen
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        if (uiManager.pauseState)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
 
-        //make you unable to see the cursor and lock it in the center of the screen
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+
     }
 
     private void Update()
@@ -43,7 +54,7 @@ public class PlayerLook : MonoBehaviour
         playerUI.UpdatePromptText(string.Empty);
 
         //rotate the camera and the player
-        if (cam != null)
+        if (cam != null && !uiManager.pauseState)
         {
             cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
             transform.rotation = Quaternion.Euler(0, yRotation, 0);
@@ -83,14 +94,17 @@ public class PlayerLook : MonoBehaviour
 
     public void MyInput(Vector2 input)
     {
-        //putting the mouse movements into variables
-        mouseX = input.x;
-        mouseY = input.y;
+        if (!uiManager.pauseState)
+        {
+            //putting the mouse movements into variables
+            mouseX = input.x;
+            mouseY = input.y;
 
-        //rotate the camera and the player
-        yRotation += mouseX * sensX * multiplier;
-        xRotation -= mouseY * sensY * multiplier;
+            //rotate the camera and the player
+            yRotation += mouseX * sensX * multiplier;
+            xRotation -= mouseY * sensY * multiplier;
 
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); 
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        }
     }
 }

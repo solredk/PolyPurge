@@ -1,62 +1,129 @@
 using UnityEngine;
 using UnityEngine.AI;
+    public enum EnemyType
+    {
+        Ranged,
+        explosive
+    }
+
 public class EnemyBase : MonoBehaviour
 {
+
+
+    public EnemyType enemyType;
+
     private StateMachine stateMachine;
+
+    public GameObject Player;
+
+    public Vector3 LastKnownPlayerPosition;
+
+
+    [Header("AI")]
     public NavMeshAgent navMeshAgent;
 
-    [SerializeField] private string currentState;
+    public bool HasBeenHit;
 
-    private GameObject player;
-    public float sightDistance;
-
-    public float fieldOfView;
+    [SerializeField] private GameManager gameManager;
 
     public Path path;
 
-    public float eyeHight;
+    [SerializeField] private LayerMask playermask;
+    
+    [Header("sight values")]
+    public float sightDistance;
+    public float fieldOfView;
 
     public bool CanSee;
+
+    [SerializeField] private string currentState;
+
+    public float eyeHight;
+
+    [Header("weapon values")]
+    public Transform gunBarrel;
     
+    public GameObject bulletPrefab;
+
+    [Range(0.1f,10f)]
+    public  float FireRate;
+
+    [Header("explosive specs")]
+
+    [SerializeField] private GameObject explosion;
+    [SerializeField] private float explosionDamage = 10f;
+
+    public  float explosionRange = 3f;
 
     private void Start()
     {
         stateMachine = GetComponent<StateMachine>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         stateMachine.Initialise();
-        player = GameObject.FindGameObjectWithTag("Player"); 
+        Player = GameObject.FindGameObjectWithTag("Player"); 
     }
 
     private void Update()
     {
-        CanSee = CanSeePlayer();
+        CanSeePlayer();
+        currentState = stateMachine.currentState.ToString();
     }
 
     public bool CanSeePlayer()
     {
-        if (player != null)
+        if (Player != null)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) < sightDistance) 
+            if (Vector3.Distance(transform.position, Player.transform.position) < sightDistance) 
             {
-                Vector3 targetDirection = player.transform.position - transform.position - (Vector3.up * eyeHight);
+                Vector3 targetDirection = Player.transform.position - transform.position - (Vector3.up * eyeHight);
                 float angleToPlayer = Vector3.Angle(targetDirection, transform.forward);
                 if (angleToPlayer >= -fieldOfView && angleToPlayer <= fieldOfView)
                 {
                     Ray ray = new Ray(transform.position + (Vector3.up * eyeHight), targetDirection);
                     RaycastHit hitInfo = new RaycastHit();
-                    if(Physics.Raycast(ray , out hitInfo, sightDistance))
-                    {
-                        Debug.Log("werk jij kanker ding");               
-                        if (hitInfo.collider.gameObject == player)
+                    int layerMask = LayerMask.GetMask("Default", "Player"); // Voeg alle relevante lagen toe
+
+                    if (Physics.Raycast(ray , out hitInfo, sightDistance, layerMask))
+                    {      
+                        if (hitInfo.collider.gameObject == Player)
                         {
+                            Debug.DrawRay(ray.origin, ray.direction * sightDistance);  
                             return true;
                         }
-                        Debug.DrawRay(ray.origin, ray.direction * sightDistance);  
+                        Debug.Log(hitInfo.collider.gameObject.name);
                     }
                 }
             }
-
         }
         return false;
+    }
+
+    public void Explode()
+    {
+        Instantiate(explosion, transform.position, Quaternion.identity);
+
+        if (Vector3.Distance(Player.transform.position, transform.position) <= explosionRange)
+        {
+            PlayerHealth playerHealth = Player.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                if (gameManager != null)
+                    gameManager.AddKill(1);
+                playerHealth.TakeDamage(explosionDamage);
+            }
+        }
+        Destroy(gameObject);
+    }
+    public void AlertAndAttackPlayer()
+    {
+        if (Player != null)
+        {
+            HasBeenHit = true;
+            LastKnownPlayerPosition = Player.transform.position;
+            if(enemyType == EnemyType.Ranged)
+                stateMachine.SwitchState(new Attackstate());
+            else if (enemyType == EnemyType.explosive)
+                stateMachine.SwitchState(new ExplosiveAttackState()); 
+        }
     }
 }

@@ -28,11 +28,6 @@ public class GameManager : MonoBehaviour
         {
             UpdateObjectiveUI();
         }
-        // Alleen bij een geldige objective updaten
-        if (objective != ObjectiveType.None)
-        {
-            UpdateObjectiveUI();
-        }
     }
 
     private void Update()
@@ -71,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     public void CanExit()
     {
-
+        exitDoor.SetActive(true);
         UpdateObjectiveUI();
     }
 
@@ -80,7 +75,15 @@ public class GameManager : MonoBehaviour
 
     private bool ObjectiveComplete()
     {
-        if (intelCount >= maxIntel && objective != ObjectiveType.None)
+        if (killCount >= maxKills && objective == ObjectiveType.Kill)
+        {
+            return true;
+        }
+        else if(killCount >= maxKills && objective == ObjectiveType.Kill)
+        {
+            return false;
+        }
+        else if(intelCount >= maxIntel && objective == ObjectiveType.Intel)
         {
             return true;
         }

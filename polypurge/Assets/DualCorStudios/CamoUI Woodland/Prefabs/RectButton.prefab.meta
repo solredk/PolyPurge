@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 67f177a73fc696f40aa8f044a1583dbf
+timeCreated: 1445894113
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 48829
+  packageName: 'Camo UI Elements: Woodland'
+  packageVersion: 1.0
+  assetPath: Assets/DualCorStudios/CamoUI Woodland/Prefabs/RectButton.prefab
+  uploadId: 88540

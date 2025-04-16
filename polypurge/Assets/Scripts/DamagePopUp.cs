@@ -4,6 +4,7 @@ using UnityEngine;
 public class DamagePopUp : MonoBehaviour
 {
     public static DamagePopUp current;
+
     public GameObject prefab;
 
     private void Awake()

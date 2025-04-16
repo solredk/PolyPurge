@@ -10,13 +10,25 @@ public class PlayerUI : MonoBehaviour
 
     public void UpdateObjectiveText(int count, int maxAmount, ObjectiveType objective)
     {
+        Debug.Log("Objective: " + objective.ToString() + " " + count.ToString() + "/" + maxAmount.ToString());
+        if (intelText == null)
+        {
+            return;
+        }
         if (count == maxAmount)
         {
-            promptText.text = "Objective Complete";
+            intelText.text = "Objective Complete return to start";
         }
-        else if (count < maxAmount)
+        else if (count < maxAmount )
         {
-            promptText.text = "Objective " + count.ToString() + "/" + maxAmount.ToString();
+            if(objective == ObjectiveType.Kill)
+            {
+                intelText.text = "Kill " + count.ToString() + "/" + maxAmount.ToString();
+            }
+            else if (objective == ObjectiveType.Intel)
+            {
+                intelText.text = "Intel " + count.ToString() + "/" + maxAmount.ToString();
+            }
         }
     }
 

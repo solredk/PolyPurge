@@ -77,6 +77,7 @@ public class Gun : MonoBehaviour
 
             //setting the raycast to the middle of the camera screen
             Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
             //setting the layermask to the layers you want to hit
             int layerMask = LayerMask.GetMask("Default", "Enemy", "Environment");
 
@@ -90,6 +91,7 @@ public class Gun : MonoBehaviour
                     Vector3 impactPosition = hit.point + hit.normal * 0.01f;
                     //instantiat the bulletimpact prefab
                     GameObject impact = Instantiate(bulletImpactPrefab, impactPosition, Quaternion.LookRotation(hit.normal),hit.transform);
+                    impact.transform.localScale = Vector3.one;  // Reset de schaal
                     //destroy the impact after 2 seconds
                     Destroy(impact, 2f);
                 }

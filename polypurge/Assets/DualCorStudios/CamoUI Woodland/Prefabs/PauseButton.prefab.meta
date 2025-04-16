@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6f98cd6f05416d2448b7eaa3cfbe81f9
+timeCreated: 1445894128
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 48829
+  packageName: 'Camo UI Elements: Woodland'
+  packageVersion: 1.0
+  assetPath: Assets/DualCorStudios/CamoUI Woodland/Prefabs/PauseButton.prefab
+  uploadId: 88540

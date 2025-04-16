@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 6249346997280930718}
   - component: {fileID: 4579779797156884815}
   - component: {fileID: 8082186367452380606}
-  - component: {fileID: 6552552561407575117}
   - component: {fileID: 5719342254295172642}
+  - component: {fileID: 87894975596335929}
   m_Layer: 0
   m_Name: Red Barrel
   m_TagString: Untagged
@@ -154,31 +154,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 3261854011939005256, guid: 9efa635e0a33d344aa68a8198890b1da,
     type: 3}
-  damage: 10
+  damage: 80
   destroyedPrefab: {fileID: 1225380590895219162, guid: 60ad933eefe105e43a5a61379f7cf1ac,
     type: 3}
---- !u!114 &6552552561407575117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4411767464038043759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9450ee38858cd224ab09c55aa9ea34b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxhitpoints: 100
-  hitpoints: 0
-  explosionEffect: {fileID: 3261854011939005256, guid: 9efa635e0a33d344aa68a8198890b1da,
-    type: 3}
-  isExplosive: 0
-  explosionDamage: 10
-  explosionTrigger: {fileID: 0}
-  destroyedPrefab: {fileID: 1225380590895219162, guid: 60ad933eefe105e43a5a61379f7cf1ac,
-    type: 3}
-  destroyDelay: 0
 --- !u!65 &5719342254295172642
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -200,6 +178,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1000, y: 1000, z: 167.0856}
   m_Center: {x: 0, y: -1.5004003, z: -6.284999}
+--- !u!114 &87894975596335929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4411767464038043759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926910f80fdd3924e95b067706db2058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxhitpoints: 100
+  hitpoints: 0
+  explosionEffect: {fileID: 3261854011939005256, guid: 9efa635e0a33d344aa68a8198890b1da,
+    type: 3}
+  destroyedPrefab: {fileID: 1225380590895219162, guid: 60ad933eefe105e43a5a61379f7cf1ac,
+    type: 3}
+  explosionDamage: 10
+  destroyDelay: 2
 --- !u!1 &9052448560409267350
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +224,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.12503147, y: 0.6347415, z: -7.93}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4554281287006811998}

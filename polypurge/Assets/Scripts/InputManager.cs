@@ -51,6 +51,11 @@ public class InputManager : MonoBehaviour
 
     }
 
+    public void DoSwitchWeapon(InputAction.CallbackContext context)
+    {
+        context.ReadValue<float>();
+
+    }
     private void FixedUpdate()
     {
         if (movement != null)

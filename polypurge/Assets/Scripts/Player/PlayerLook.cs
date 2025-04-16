@@ -31,26 +31,26 @@ public class PlayerLook : MonoBehaviour
 
     private void Start()
     {
-        // Get the camera component from the player gameobject child
-        cam = GetComponentInChildren<Camera>();
         playerUI = GetComponent<PlayerUI>();
-        if (!uiManager.pauseState)
-        {
-            //make you unable to see the cursor and lock it in the center of the screen
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-        if (uiManager.pauseState)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+
 
 
     }
 
     private void Update()
     {
+        if (!uiManager.pauseState && Cursor.lockState != CursorLockMode.Locked && uiManager.pauseMenu != null)
+        {
+            //make you unable to see the cursor and lock it in the center of the screen
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        if (uiManager.pauseState && Cursor.lockState != CursorLockMode.None ||  uiManager.pauseMenu == null)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
         playerUI.UpdatePromptText(string.Empty);
 
         //rotate the camera and the player

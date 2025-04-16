@@ -1,17 +1,12 @@
 using UnityEngine;
-using UnityEngine.XR;
 
 public class StateMachine : MonoBehaviour
 {
     // the current state that is active 
-    private BaseState currentState;
-    public PatrolState patrolState;
+    public BaseState currentState;
 
-    // Start wordt aangeroepen bij het begin
-    void Start()
-    {
-        
-    }
+
+
     // Update wordt elke frame aangeroepen
     void Update()
     {
@@ -23,8 +18,7 @@ public class StateMachine : MonoBehaviour
 
     public void Initialise()
     {
-        patrolState = new PatrolState();
-        SwitchState(patrolState);
+        SwitchState(new PatrolState());
     }
 
     public void SwitchState(BaseState state)

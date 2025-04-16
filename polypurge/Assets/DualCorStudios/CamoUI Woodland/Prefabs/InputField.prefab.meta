@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0ae2405c9c1a0e44caabce07d7be6fe9
+timeCreated: 1445894140
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 48829
+  packageName: 'Camo UI Elements: Woodland'
+  packageVersion: 1.0
+  assetPath: Assets/DualCorStudios/CamoUI Woodland/Prefabs/InputField.prefab
+  uploadId: 88540

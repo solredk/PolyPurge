@@ -11,6 +11,18 @@ public class PatrolState : BaseState
     public override void Perform()
     {
         PatrolCicle();
+        if (enemyBase.CanSeePlayer())
+        {    
+            if (enemyBase.enemyType == EnemyType.Ranged)
+            {
+                stateMachine.SwitchState(new Attackstate());
+            }
+            else if (enemyBase.enemyType == EnemyType.explosive)
+            {
+                stateMachine.SwitchState(new ExplosiveAttackState());
+            }
+
+        }
     }
     public override void Exit()
     {

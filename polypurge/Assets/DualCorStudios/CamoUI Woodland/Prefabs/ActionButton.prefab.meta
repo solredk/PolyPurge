@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 24753e3dec65ce94ebfff00bdc87df04
+timeCreated: 1445894104
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 48829
+  packageName: 'Camo UI Elements: Woodland'
+  packageVersion: 1.0
+  assetPath: Assets/DualCorStudios/CamoUI Woodland/Prefabs/ActionButton.prefab
+  uploadId: 88540

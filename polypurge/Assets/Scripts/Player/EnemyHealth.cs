@@ -1,58 +1,52 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
+using System.Runtime.CompilerServices;
+
 
 public class EnemyHealth : Health
 {
-    [Header("Explosion Settings")]
-    [SerializeField] private bool isExplosive;
-    [SerializeField] private ParticleSystem explosionEffect;
-    [SerializeField] private Collider explosionTrigger;
-    [SerializeField] private GameObject destroyedPrefab;
-    [SerializeField] private float explosionDamage = 10f;
-    [SerializeField] private float destroyDelay = 2f;
+    [SerializeField] private GameManager gameManager;
+    
+    [SerializeField] private GameObject deathEffect;
 
-    private PlayerHealth playerHealth;
+    [SerializeField] private Renderer bodyRenderer;
+    [SerializeField] private EnemyBase enemyBase;
+
     private bool isDead = false;
+
 
     private void Update()
     {
         if (!isDead && hitpoints <= 0)
         {
-            isDead = true;
-
-            if (isExplosive && playerHealth != null)
+            if (gameManager.objective == ObjectiveType.Kill)
             {
-                playerHealth.TakeDamage(explosionDamage);
+                gameManager.AddKill(1);
             }
 
-            Explode();
+            Destroy(gameObject);
+            if (deathEffect != null)
+            {
+                Instantiate(deathEffect, transform.position, Quaternion.identity);
+            }
         }
     }
 
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        DamagePopUp.current.CreatePopUp(transform.position, damage.ToString());
+        enemyBase.AlertAndAttackPlayer();
+        StartCoroutine(HitEffect());
     }
-
-    private void Explode()
+    IEnumerator HitEffect()
     {
-        if (explosionEffect != null)
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        if (destroyedPrefab != null)
-            Instantiate(destroyedPrefab, transform.position, transform.rotation);
+        Color originalColor = bodyRenderer.material.color;
 
-        Destroy(gameObject, destroyDelay);
+        bodyRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(.2f);
+        bodyRenderer.material.color = originalColor;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        playerHealth = other.GetComponent<PlayerHealth>();
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<PlayerHealth>() == playerHealth)
-            playerHealth = null;
-    }
 }

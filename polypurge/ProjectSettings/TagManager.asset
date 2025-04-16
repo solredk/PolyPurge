@@ -7,6 +7,7 @@ TagManager:
   - Laser Line
   - Destructable
   - Reset
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -14,9 +15,9 @@ TagManager:
   - No Player Collision
   - Water
   - UI
-  - 
-  - 
   - Player
+  - NotOnMainCamera
+  - 
   - Hidden
   - Stencil
   - Post-Procssing
@@ -25,7 +26,7 @@ TagManager:
   - Enviroment Ovarley
   - Iteractable
   - Post-Procssing Ovarley
-  - 
+  - IgnoreCamera
   - 
   - 
   - 
@@ -43,6 +44,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: IgnoreCamera
+    uniqueID: 3055564855
     locked: 0
   m_RenderingLayers:
   - Default

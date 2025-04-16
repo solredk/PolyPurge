@@ -1,20 +1,45 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private Canvas pauseMenu;
+    public GameObject pauseMenu;
+
+    [SerializeField] private EventSystem eventSystem;
+
     public bool pauseState;
+
+    private GameObject currentbutton;
+
+    private void Update()
+    {
+        if (eventSystem != null)
+        {
+            
+            if (eventSystem.currentSelectedGameObject != null)
+            {
+                currentbutton = eventSystem.currentSelectedGameObject;                
+            }
+            else
+            {
+                eventSystem.SetSelectedGameObject(currentbutton);
+            }
+        }
+    }
+
     public void LoadScene(int level)
     {
         Debug.Log("Level loaded: " + level);
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene(level);
     }
 
     public void QuitGame()
     {
-        Debug.Log("Game is exiting...");
         Application.Quit();
     }
 

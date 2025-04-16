@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : Health
@@ -30,15 +31,10 @@ public class PlayerHealth : Health
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        if (hitpoints <= 0)
         {
-            TakeDamage(10);
+            SceneManager.LoadScene(1);
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            HealDamage(10);
-        }
-
         UpdateHealthUI();
 
         //checking if the overlay is visible

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c36a65b1f41a799468226b78d3de13d6
+timeCreated: 1445894132
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 48829
+  packageName: 'Camo UI Elements: Woodland'
+  packageVersion: 1.0
+  assetPath: Assets/DualCorStudios/CamoUI Woodland/Prefabs/StoreItem.prefab
+  uploadId: 88540
